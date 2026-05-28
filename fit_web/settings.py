@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fit'
 ]
 
 MIDDLEWARE = [
@@ -116,6 +117,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# configure for static files
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]

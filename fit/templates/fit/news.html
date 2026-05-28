@@ -1,0 +1,144 @@
+{% extends 'fit/layout.html' %}
+
+{% block title %}
+    Новости FitApp
+{% endblock %}
+
+{% block content %}
+<div class="news-page">
+    <div class="news-header">
+        <h1>Новости FitApp</h1>
+        <p>Будь в курсе последних обновлений и событий</p>
+    </div>
+
+    <div class="news-grid">
+        {% for article in articles %}
+        <div class="news-card">
+            <div class="news-card-inner">
+                <div class="news-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="news-content">
+                    <h2 class="news-title">{{ article.title }}</h2>
+                    <div class="news-meta">
+                        <span class="news-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            {{ article.created_at|date:"d.m.Y" }}
+                        </span>
+                        <span class="news-read-time">
+                            <i class="fas fa-clock"></i>
+                            {{ article.content|wordcount|divisibleby:200|default:2 }} мин чтения
+                        </span>
+                    </div>
+                    <div class="news-text">
+                        <p>{{ article.content|truncatewords:50 }}</p>
+                    </div>
+                    <button class="read-more-btn" onclick="openModal('{{ article.id }}')">
+                        Читать далее <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-news">
+            <i class="fas fa-inbox"></i>
+            <h3>Новостей пока нет</h3>
+            <p>Скоро здесь появятся первые новости!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Модальное окно для полного текста новости -->
+<div id="newsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle"></h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="modal-meta">
+                <span id="modalDate"></span>
+            </div>
+            <div id="modalContent"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="close-btn">Закрыть</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Данные статей для модального окна
+    const articles = [
+        {% for article in articles %}
+        {
+            id: {{ article.id }},
+            title: "{{ article.title|escapejs }}",
+            content: "{{ article.content|escapejs }}",
+            date: "{{ article.created_at|date:'d.m.Y' }}"
+        },
+        {% endfor %}
+    ];
+
+    // Функция открытия модального окна
+    function openModal(articleId) {
+        const article = articles.find(a => a.id == articleId);
+        if (article) {
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-newspaper"></i> ' + article.title;
+            document.getElementById('modalDate').innerHTML = '<i class="fas fa-calendar-alt"></i> ' + article.date;
+            document.getElementById('modalContent').innerHTML = formatContent(article.content);
+            document.getElementById('newsModal').style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+    }
+
+    // Форматирование контента (разбивка на абзацы)
+    function formatContent(content) {
+        if (!content) return '';
+        // Разбиваем на абзацы по двойному переносу строки или просто по переносам
+        let paragraphs = content.split(/\r?\n\r?\n/);
+        if (paragraphs.length === 1) {
+            paragraphs = content.split(/\r?\n/);
+        }
+        let html = '';
+        paragraphs.forEach(p => {
+            p = p.trim();
+            if (p) {
+                html += '<p>' + p.replace(/\r?\n/g, '<br>') + '</p>';
+            }
+        });
+        return html;
+    }
+
+    // Закрытие модального окна
+    const modal = document.getElementById('newsModal');
+    const span = document.getElementsByClassName("close")[0];
+    const closeBtn = document.getElementsByClassName("close-btn")[0];
+
+    span.onclick = function() {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    }
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape" && modal.style.display === "block") {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    });
+</script>
+{% endblock %}

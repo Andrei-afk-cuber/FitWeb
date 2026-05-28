@@ -1,0 +1,67 @@
+{% extends 'fit/layout.html' %}
+
+{% block title %}
+    FitApp - Твой фитнес-помощник
+{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Добро пожаловать в <span class="highlight">FitApp</span></h1>
+        <p>Твой персональный помощник в мире фитнеса и здорового образа жизни</p>
+    </div>
+</div>
+
+<div class="features-section">
+    <h2>Почему выбирают <span class="highlight">FitApp</span>?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <i class="fas fa-dumbbell"></i>
+            <h3>Индивидуальные тренировки</h3>
+            <p>Составь и сохрани свою программу тренировок</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-apple-alt"></i>
+            <h3>Питание</h3>
+            <p>Рассчитай КБЖУ, для эффективных тренировок</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Отслеживай прогресс</h3>
+            <p>Следи за своими достижениями и улучшай результаты</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-users"></i>
+            <h3>Сообщество</h3>
+            <p>Общайся с единомышленниками и делись успехами</p>
+        </div>
+    </div>
+</div>
+
+<div class="stats-section">
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Активных пользователей</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Тренировок</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">Довольных клиентов</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Поддержка</div>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section">
+    <h2>Готов начать свой путь к здоровью?</h2>
+    <p>Присоединяйся к FitApp сегодня и достигни своих целей!</p>
+    <a href="#" class="btn btn-primary">Регистрация</a>
+</div>
+{% endblock %}
