@@ -1,20 +1,62 @@
 {% extends 'authentication/layout.html' %}
 
 {% block title %}
-Вход в систему
+Вход в систему | FitApp
 {% endblock %}
 
 {% block main %}
-<form action="" method="post">
-	{% csrf_token %}
-	<label for="email_input">Почта:</label>
-	<input id="email_input" type="email" name="email" required><br>
-	<label for="password_input">Пароль:</label>
-	<input id="password_input" type="password" name="password" required><br>
-	{% if not success %}
-		<p style="color: red;">Проверьте логин или пароль</p>
-	{% endif %}
-	<a href="{% url 'registration-page' %}">Нет аккаунта</a><br>
-	<button type="submit">Войти</button>
-</form>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Добро пожаловать! 👋</h2>
+            <p>Войдите в свой аккаунт FitApp</p>
+        </div>
+
+        <div class="auth-body">
+            {% if not success %}
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i> Проверьте логин или пароль
+                </div>
+            {% endif %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="email_input">
+                        <i class="fas fa-envelope"></i> Электронная почта
+                    </label>
+                    <input id="email_input"
+                           type="email"
+                           name="email"
+                           class="form-control"
+                           placeholder="example@mail.com"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password_input">
+                        <i class="fas fa-lock"></i> Пароль
+                    </label>
+                    <input id="password_input"
+                           type="password"
+                           name="password"
+                           class="form-control"
+                           placeholder="Введите пароль"
+                           required>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+
+            <div class="auth-links">
+                <a href="{% url 'registration-page' %}">
+                    <i class="fas fa-user-plus"></i> Нет аккаунта? Зарегистрируйтесь
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

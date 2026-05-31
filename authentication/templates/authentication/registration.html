@@ -1,14 +1,78 @@
 {% extends 'authentication/layout.html' %}
 
 {% block title %}
-Регистрация
+Регистрация | FitApp
 {% endblock %}
 
 {% block main %}
-<form action="" method="post">
-  {% csrf_token %}
-  {{ form }}
-  <a href="{% url 'login-page' %}">Уже есть аккаунт</a><br>
-  <button type="submit">Регистрация</button>
-</form>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Создать аккаунт 🎉</h2>
+            <p>Присоединяйтесь к FitApp и начните свой путь к здоровью</p>
+        </div>
+
+        <div class="auth-body">
+            <form action="" method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">
+                            {% if field.name == 'email' %}
+                                <i class="fas fa-envelope"></i>
+                            {% elif field.name == 'password' %}
+                                <i class="fas fa-lock"></i>
+                            {% elif field.name == 'first_name' %}
+                                <i class="fas fa-user"></i>
+                            {% elif field.name == 'last_name' %}
+                                <i class="fas fa-user-friends"></i>
+                            {% elif field.name == 'gender' %}
+                                <i class="fas fa-venus-mars"></i>
+                            {% elif field.name == 'weight' %}
+                                <i class="fas fa-weight-scale"></i>
+                            {% elif field.name == 'height' %}
+                                <i class="fas fa-ruler"></i>
+                            {% elif field.name == 'age' %}
+                                <i class="fas fa-calendar-alt"></i>
+                            {% elif field.name == 'activity_status' %}
+                                <i class="fas fa-chart-line"></i>
+                            {% elif field.name == 'target' %}
+                                <i class="fas fa-bullseye"></i>
+                            {% endif %}
+                            {{ field.label }}
+                            {% if field.field.required %}
+                                <span style="color: #e74c3c;">*</span>
+                            {% endif %}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-user-check"></i> Зарегистрироваться
+                </button>
+            </form>
+
+            <div class="auth-links">
+                <a href="{% url 'login-page' %}">
+                    <i class="fas fa-sign-in-alt"></i> Уже есть аккаунт? Войдите
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
