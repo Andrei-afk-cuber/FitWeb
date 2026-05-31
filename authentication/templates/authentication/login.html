@@ -1,0 +1,20 @@
+{% extends 'authentication/layout.html' %}
+
+{% block title %}
+Вход в систему
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+	{% csrf_token %}
+	<label for="email_input">Почта:</label>
+	<input id="email_input" type="email" name="email" required><br>
+	<label for="password_input">Пароль:</label>
+	<input id="password_input" type="password" name="password" required><br>
+	{% if not success %}
+		<p style="color: red;">Проверьте логин или пароль</p>
+	{% endif %}
+	<a href="{% url 'registration-view' %}">Нет аккаунта</a><br>
+	<button type="submit">Войти</button>
+</form>
+{% endblock %}

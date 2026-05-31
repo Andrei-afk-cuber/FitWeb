@@ -5,18 +5,21 @@ from django.db import models
 
 # user manager
 class UserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, password=None, commit=True):
-        if not email:
-            raise ValueError('Пользователь должен иметь почту')
-        if not first_name:
-            raise ValueError('Пользователь должен иметь имя')
-        if not last_name:
-            raise ValueError('Пользователь должен иметь фамилию')
-
+    def create_user(
+            self, email, first_name, last_name,
+            gender, weight, height, age,
+            activity_status, target, password=None, commit=True
+    ):
         user = self.model(
             email=self.normalize_email(email),
             first_name=first_name,
             last_name=last_name,
+            gender=gender,
+            weight=weight,
+            height=height,
+            age=age,
+            activity_status=activity_status,
+            target=target,
         )
 
         user.set_password(password)
@@ -36,7 +39,6 @@ class UserManager(BaseUserManager):
         )
 
         user.is_staff = True
-        user.is_active = True
         user.is_superuser = True
         user.save()
         return user
@@ -87,7 +89,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     target = models.CharField(
         'Цель', max_length=10, choices=TARGET_CHOICES, default='maintain'
     )
-    is_active = models.BooleanField('Активированный', default=False)
+    is_active = models.BooleanField('Активированный', default=True)
     is_staff = models.BooleanField('Работник', default=False)
 
     date_joined = models.DateTimeField(auto_now_add=True)
