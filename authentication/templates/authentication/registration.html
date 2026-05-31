@@ -8,7 +8,7 @@
 <form action="" method="post">
   {% csrf_token %}
   {{ form }}
-  <a href="{% url 'login-view' %}">Уже есть аккаунт</a><br>
+  <a href="{% url 'login-page' %}">Уже есть аккаунт</a><br>
   <button type="submit">Регистрация</button>
 </form>
 {% endblock %}

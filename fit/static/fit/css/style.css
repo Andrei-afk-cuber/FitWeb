@@ -53,6 +53,27 @@ header a i {
     font-size: 18px;
 }
 
+header .profile-settings {
+    margin-left: auto;
+    background: rgba(0, 167, 73, 1);
+    border-radius: 50px;
+    padding: 5px 15px 5px 15px;
+    transition: all 0.3s ease;
+}
+
+header .profile-settings:hover {
+    background: rgba(0, 148, 65, 1);
+    transform: scale(1.02);
+}
+
+header .profile-settings a {
+    margin-right: 0;
+}
+
+header .profile-settings a:hover {
+    color: rgba(230, 230, 230, 1);
+}
+
 /* Main content */
 main {
     margin-top: 80px;

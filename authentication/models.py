@@ -3,12 +3,22 @@ from django.contrib.auth.models import PermissionsMixin
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
+
 # user manager
 class UserManager(BaseUserManager):
     def create_user(
-            self, email, first_name, last_name,
-            gender, weight, height, age,
-            activity_status, target, password=None, commit=True
+        self,
+        email,
+        first_name,
+        last_name,
+        gender,
+        weight,
+        height,
+        age,
+        activity_status,
+        target,
+        password=None,
+        commit=True,
     ):
         user = self.model(
             email=self.normalize_email(email),
@@ -35,7 +45,7 @@ class UserManager(BaseUserManager):
             password=password,
             first_name=first_name,
             last_name=last_name,
-            commit=False
+            commit=False,
         )
 
         user.is_staff = True
@@ -43,68 +53,63 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
+
 # user model
 class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
 
     GENDER_CHOICES = (
-        ('M', 'Мужчина'),
-        ('F', 'Женщина'),
+        ("M", "Мужчина"),
+        ("F", "Женщина"),
     )
     ACTIVITY_CHOICES = (
-        (1, 'Нет активности'),
-        (2, 'Легкая активность'),
-        (3, 'Умеренная активность'),
-        (4, 'Высокая активность'),
-        (5, 'Очень высокая активность')
+        (1, "Нет активности"),
+        (2, "Легкая активность"),
+        (3, "Умеренная активность"),
+        (4, "Высокая активность"),
+        (5, "Очень высокая активность"),
     )
     TARGET_CHOICES = (
-        ('loss', 'Снижение веса'),
-        ('maintain', 'Поддержание веса'),
-        ('gain', 'Набор веса')
+        ("loss", "Снижение веса"),
+        ("maintain", "Поддержание веса"),
+        ("gain", "Набор веса"),
     )
 
-    email = models.EmailField(
-        'почта', max_length=100, unique=True
-    )
-    first_name = models.CharField(
-        'Имя', max_length=50
-    )
-    last_name = models.CharField(
-        'Фамилия', max_length=50
-    )
-    gender = models.CharField(
-        'Пол', max_length=1, choices=GENDER_CHOICES, default='M'
-    )
-    weight = models.FloatField(verbose_name='Вес', default=0)
-    height = models.FloatField(verbose_name='Рост', default=0)
+    email = models.EmailField("почта", max_length=100, unique=True)
+    first_name = models.CharField("Имя", max_length=50)
+    last_name = models.CharField("Фамилия", max_length=50)
+    gender = models.CharField("Пол", max_length=1, choices=GENDER_CHOICES, default="M")
+    weight = models.FloatField(verbose_name="Вес", default=0)
+    height = models.FloatField(verbose_name="Рост", default=0)
     age = models.IntegerField(
-        'Возраст', validators=[MinValueValidator(12), MaxValueValidator(100)], default=12
+        "Возраст",
+        validators=[MinValueValidator(12), MaxValueValidator(100)],
+        default=12,
     )
     activity_status = models.IntegerField(
-        'Статус физической активности', choices=ACTIVITY_CHOICES, default=1
+        "Статус физической активности", choices=ACTIVITY_CHOICES, default=1
     )
     target = models.CharField(
-        'Цель', max_length=10, choices=TARGET_CHOICES, default='maintain'
+        "Цель", max_length=10, choices=TARGET_CHOICES, default="maintain"
     )
-    is_active = models.BooleanField('Активированный', default=True)
-    is_staff = models.BooleanField('Работник', default=False)
+    is_active = models.BooleanField("Активированный", default=True)
+    is_staff = models.BooleanField("Работник", default=False)
 
     date_joined = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def __str__(self):
-        return f'{self.id}: {self.first_name} {self.last_name}'
+        return f"{self.id}: {self.first_name} {self.last_name}"
 
     @property
     def full_name(self):
-        return f'{self.first_name} {self.last_name}'
+        return f"{self.first_name} {self.last_name}"
 
     @property
     def body_mass_index(self):

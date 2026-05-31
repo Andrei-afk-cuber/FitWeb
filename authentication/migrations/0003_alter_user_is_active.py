@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('authentication', '0002_alter_user_age_alter_user_height_alter_user_weight'),
+        ("authentication", "0002_alter_user_age_alter_user_height_alter_user_weight"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='is_active',
-            field=models.BooleanField(default=True, verbose_name='Активированный'),
+            model_name="user",
+            name="is_active",
+            field=models.BooleanField(default=True, verbose_name="Активированный"),
         ),
     ]
