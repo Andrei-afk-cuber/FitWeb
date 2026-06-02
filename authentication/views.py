@@ -60,6 +60,17 @@ class LoginUserView(View):
 # view for logout
 # FIXME: It's temp solution. Later will added button with POST method.
 class LogoutUserView(View):
-    def get(self, request):
+    def post(self, request):
         logout(request)
         return redirect("index-page")
+
+
+# view for user profile
+class UserProfileView(View):
+    def get(self, request):
+        # redirect to main page if user isn't authorizated
+        # TODO возможно лучше просто наложить permission
+        if not request.user.is_authenticated:
+            return redirect("index-page")
+
+        return render(request, "authentication/profile.html", {"request": request})

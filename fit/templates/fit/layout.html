@@ -17,7 +17,7 @@
         <a href="{% url 'news-page' %}"><i class="fa-solid fa-newspaper"></i>Обновления</a>
         {% if request.user.is_authenticated %}
         <div class="profile-settings">
-            <a href="#">
+            <a href="{% url 'profile-page' %}">
                 <i class="fa-solid fa-person" style="color: rgb(242, 242, 242);"></i>
                 {{ request.user.first_name }} {{ request.user.last_name }}
             </a>

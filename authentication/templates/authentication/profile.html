@@ -1,0 +1,45 @@
+{% extends 'fit/layout.html' %}
+
+{% block title %}
+Профиль | FitAPP
+{% endblock %}
+
+{% block content %}
+<img src="data:image/jpeg;base64,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" alt="Изображение профиля" width="200" height="200"><br>
+Почта: {{ request.user.email }}<br>
+Имя: {{ request.user.first_name }}<br>
+Фамилия: {{ request.user.last_name }}<br>
+Пол:
+{% if request.user.gender == "F" %}
+	Женский<br>
+{% elif request.user.gender == "M" %}
+	Мужской<br>
+{% endif %}
+Рост: {{ request.user.height }}<br>
+Вес: {{ request.user.weight }}<br>
+Возраст: {{ request.user.age }}<br>
+Уровень физической активности:
+{% if request.user.activity_status == 2 %}
+	Легкая активность<br>
+{% elif request.user.activity_status == 3 %}
+	Умеренная активность<br>
+{% elif request.user.activity_status == 4 %}
+	Высокая активность<br>
+{% elif request.user.activity_status == 5 %}
+	Очень высокая активность<br>
+{% else %}
+	Нет активности<br>
+{% endif %}
+Цель:
+{% if request.user.target == "loss" %}
+	Снижение веса<br>
+{% elif request.user.target == "maintain" %}
+	Поддержание веса<br>
+{% elif request.user.target == "gain" %}
+	Набор веса<br>
+{% endif %}
+<form action="{% url 'logout-page' %}" method="post">
+	{% csrf_token %}
+	<button type="submit" class="btn btn-warning">Выйти из аккаунта</button>
+</form>
+{% endblock %}

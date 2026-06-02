@@ -11,25 +11,15 @@ class UserManager(BaseUserManager):
         email,
         first_name,
         last_name,
-        gender,
-        weight,
-        height,
-        age,
-        activity_status,
-        target,
         password=None,
         commit=True,
+        **kwargs
     ):
         user = self.model(
             email=self.normalize_email(email),
             first_name=first_name,
             last_name=last_name,
-            gender=gender,
-            weight=weight,
-            height=height,
-            age=age,
-            activity_status=activity_status,
-            target=target,
+            **kwargs
         )
 
         user.set_password(password)
