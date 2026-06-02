@@ -44,3 +44,18 @@ class UserForm(forms.ModelForm):
         self.fields["weight"].widget.attrs["class"] = "form-control"
         self.fields["height"].widget.attrs["class"] = "form-control"
         self.fields["age"].widget.attrs["class"] = "form-control"
+
+# update user form
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["weight", "height", "age", "activity_status", "target"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["weight"].widget.attrs["class"] = "form-control"
+        self.fields["height"].widget.attrs["class"] = "form-control"
+        self.fields["age"].widget.attrs["class"] = "form-control"
+        self.fields["activity_status"].widget.attrs["class"] = "form-select"
+        self.fields["target"].widget.attrs["class"] = "form-select"

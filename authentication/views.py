@@ -3,8 +3,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.views import View
+from django.views.generic import UpdateView
 
-from .forms import UserForm
+from .forms import UserForm, UserUpdateForm
 from .models import User
 
 
@@ -58,7 +59,6 @@ class LoginUserView(View):
 
 
 # view for logout
-# FIXME: It's temp solution. Later will added button with POST method.
 class LogoutUserView(View):
     def post(self, request):
         logout(request)
@@ -73,4 +73,13 @@ class UserProfileView(View):
         if not request.user.is_authenticated:
             return redirect("index-page")
 
-        return render(request, "authentication/profile.html", {"request": request})
+        return render(request, "authentication/profile.html")
+
+
+# view for update user
+# TODO добавить permission для того чтобы не могли пользователи изменять друг-друга
+class UserUpdateView(UpdateView):
+    queryset = User.objects.all()
+    template_name = "authentication/registration.html"
+    form_class = UserUpdateForm
+    success_url = "/users/profile/"

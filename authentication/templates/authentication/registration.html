@@ -8,8 +8,12 @@
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
+            {% if user.is_authenticated %}
+            <h2>Обновить профиль</h2>
+            {% else %}
             <h2>Создать аккаунт 🎉</h2>
             <p>Присоединяйтесь к FitApp и начните свой путь к здоровью</p>
+            {% endif %}
         </div>
 
         <div class="auth-body">
@@ -63,15 +67,21 @@
                 {% endfor %}
 
                 <button type="submit" class="btn-submit">
-                    <i class="fas fa-user-check"></i> Зарегистрироваться
+                    {% if user.is_authenticated %}
+                        <i class="fas fa-user-check"></i> Обновить
+                    {% else %}
+                        <i class="fas fa-user-check"></i> Зарегистрироваться
+                    {% endif %}
                 </button>
             </form>
 
+            {% if not user.is_authenticated %}
             <div class="auth-links">
                 <a href="{% url 'login-page' %}">
                     <i class="fas fa-sign-in-alt"></i> Уже есть аккаунт? Войдите
                 </a>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
