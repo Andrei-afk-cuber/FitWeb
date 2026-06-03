@@ -74,7 +74,6 @@ class UserUpdateView(UpdateView):
 
 
 # view for delete user
-# FIXME: пофиксить проблему с параметром (узнать возможно про то правильно ли передавать просто user из request)
 class UserDestroyView(View):
     def post(self, request):
         request.user.delete()
