@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("fit.urls")),
     path("users/", include("authentication.urls")),
+    path("calculator/", include("calculator.urls")),
 ]

@@ -14,7 +14,7 @@
     <header>
         <span class="logo">FitApp</span>
         <a href="{% url 'index-page' %}"><i class="fa-solid fa-house"></i>Главная</a>
-        <a href="#"><i class="fa-solid fa-dumbbell"></i>Калькулятор</a>
+        <a href="{% url 'calculator-page' %}"><i class="fa-solid fa-dumbbell"></i>Калькулятор</a>
         <a href="{% url 'news-page' %}"><i class="fa-solid fa-newspaper"></i>Обновления</a>
         {% if request.user.is_authenticated %}
         <div class="profile-settings">

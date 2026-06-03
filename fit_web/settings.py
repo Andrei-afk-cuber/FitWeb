@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "fit",
     "authentication",
+    "calculator",
 ]
 
 MIDDLEWARE = [

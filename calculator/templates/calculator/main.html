@@ -1,0 +1,16 @@
+{% extends 'fit/layout.html' %}
+{% block title %}
+	Калькулятор | FitApp
+{% endblock %}
+
+{% block content %}
+{% if not user.is_authenticated %}
+<div class="cta-section">
+    <h2>Готов начать свой путь к здоровью?</h2>
+    <p>Раздел калькулятор доступен только для авторизованных пользователей!</p>
+    <a href="{% url 'registration-page' %}" class="btn btn-primary">Регистрация</a>
+</div>
+{% else %}
+
+{% endif %}
+{% endblock %}
