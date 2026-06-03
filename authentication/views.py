@@ -64,6 +64,22 @@ class LogoutUserView(View):
         logout(request)
         return redirect("index-page")
 
+# view for update user
+# TODO добавить permission для того чтобы не могли пользователи изменять друг-друга
+class UserUpdateView(UpdateView):
+    queryset = User.objects.all()
+    template_name = "authentication/registration.html"
+    form_class = UserUpdateForm
+    success_url = "/users/profile/"
+
+
+# view for delete user
+# FIXME: пофиксить проблему с параметром (узнать возможно про то правильно ли передавать просто user из request)
+class UserDestroyView(View):
+    def post(self, request):
+        request.user.delete()
+        logout(request)
+        return redirect("index-page")
 
 # view for user profile
 class UserProfileView(View):
@@ -76,10 +92,3 @@ class UserProfileView(View):
         return render(request, "authentication/profile.html")
 
 
-# view for update user
-# TODO добавить permission для того чтобы не могли пользователи изменять друг-друга
-class UserUpdateView(UpdateView):
-    queryset = User.objects.all()
-    template_name = "authentication/registration.html"
-    form_class = UserUpdateForm
-    success_url = "/users/profile/"
