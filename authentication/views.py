@@ -8,7 +8,6 @@ from django.views.generic import UpdateView
 from .forms import UserForm, UserUpdateForm
 from .models import User
 
-
 # view for registration
 class RegisterUserView(View):
     form_class = UserForm
@@ -72,7 +71,6 @@ class UserUpdateView(UpdateView):
     form_class = UserUpdateForm
     success_url = "/users/profile/"
 
-
 # view for delete user
 class UserDestroyView(View):
     def post(self, request):
@@ -89,5 +87,3 @@ class UserProfileView(View):
             return redirect("index-page")
 
         return render(request, "authentication/profile.html")
-
-

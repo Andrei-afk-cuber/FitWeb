@@ -73,6 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField("Пол", max_length=1, choices=GENDER_CHOICES, default="M")
     weight = models.FloatField(verbose_name="Вес", default=0)
     height = models.FloatField(verbose_name="Рост", default=0)
+    profile_image = models.ImageField("Фото профиля", upload_to="profile_pics/", blank=True)
     age = models.IntegerField(
         "Возраст",
         validators=[MinValueValidator(12), MaxValueValidator(100)],
