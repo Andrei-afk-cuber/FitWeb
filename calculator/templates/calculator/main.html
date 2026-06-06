@@ -1,22 +1,88 @@
 {% extends 'fit/layout.html' %}
 {% block title %}
-	Калькулятор | FitApp
+Калькулятор | FitApp
 {% endblock %}
 
 {% block content %}
 {% if not user.is_authenticated %}
 <div class="cta-section">
-    <h2>Готов начать свой путь к здоровью?</h2>
+    <h2>Готов начать свой путь к здоровью? 🏃</h2>
     <p>Раздел калькулятор доступен только для авторизованных пользователей!</p>
     <a href="{% url 'registration-page' %}" class="btn btn-primary">Регистрация</a>
 </div>
 {% else %}
-<p>Базовый метаболизм (расход калорий в состоянии полного покоя): {{ bmr }}</p>
-<p>Реальный расход калорий с учетом активности: {{ tdee }}</p>
-<h3>Вывод для достижения цели:</h3>
-<p>Белки: {{ protein }}</p>
-<p>Жиры: {{ fats }}</p>
-<p>Углеводы: {{ carbs }}</p>
-<p>Калории: {{ calories }}</p>
+<div class="calculator-container">
+    <div class="calculator-card">
+        <div class="calculator-header">
+            <h1><i class="fas fa-calculator"></i> Калькулятор калорий</h1>
+            <p>Твоя персональная норма для достижения цели</p>
+        </div>
+
+        <div class="calculator-body">
+            <!-- Результаты расчёта -->
+            <div class="results-section">
+                <div class="results-title">
+                    <i class="fas fa-chart-line"></i> Твои результаты
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="result-label">Базовый метаболизм (BMR)</div>
+                        <div class="result-value">{{ bmr }} <span style="font-size: 14px;">ккал</span></div>
+                        <div class="result-label">Расход в состоянии покоя</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <div class="result-label">Реальный расход (TDEE)</div>
+                        <div class="result-value">{{ tdee }} <span style="font-size: 14px;">ккал</span></div>
+                        <div class="result-label">С учётом активности</div>
+                    </div>
+                </div>
+
+                <div class="macros-grid">
+                    <div class="macro-card protein">
+                        <div class="macro-icon protein">
+                            <i class="fa-solid fa-egg" style="color: rgb(219, 219, 219);"></i>
+                        </div>
+                        <div class="macro-value">{{ protein }}</div>
+                        <div class="macro-unit">граммов</div>
+                        <div class="macro-label">Белки</div>
+                    </div>
+
+                    <div class="macro-card fats">
+                        <div class="macro-icon fats">
+                            <i class="fa-solid fa-burger" style="color: rgb(255, 212, 59);"></i>
+                        </div>
+                        <div class="macro-value">{{ fats }}</div>
+                        <div class="macro-unit">граммов</div>
+                        <div class="macro-label">Жиры</div>
+                    </div>
+
+                    <div class="macro-card carbs">
+                        <div class="macro-icon carbs">
+                            <i class="fa-solid fa-bolt" style="color: #17a2b8;"></i>
+                        </div>
+                        <div class="macro-value">{{ carbs }}</div>
+                        <div class="macro-unit">граммов</div>
+                        <div class="macro-label">Углеводы</div>
+                    </div>
+                </div>
+
+                <div class="calories-total">
+                    <div class="total-label">
+                        <i class="fas fa-fire"></i> Дневная норма для достижения цели
+                    </div>
+                    <div class="total-value">{{ calories }} <span class="total-unit">ккал</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
 {% endblock %}
