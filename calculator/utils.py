@@ -24,10 +24,12 @@ class NutritionCalculator:
         "Calculate by Miffiline-San Genore"
         # for male
         if gender == "M":
-            return (10 * weight) + (6.25 * height) - (5 * age) + 5
+            bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5
         # for female
         else:
-            return (10 * weight) + (6.25 * height) - (5 * age) - 161
+            bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161
+
+        return round(bmr)
 
     @classmethod
     def get_activity_factor(cls, activity_status):
@@ -38,7 +40,7 @@ class NutritionCalculator:
     def calculate_tdee(cls, bmr, activity_status):
         """Total daily calorie intake"""
         factor = cls.get_activity_factor(activity_status)
-        return bmr * factor
+        return round(bmr * factor)
 
     @classmethod
     def get_goal_factor(cls, target):
