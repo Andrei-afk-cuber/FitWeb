@@ -8,6 +8,7 @@ from django.views.generic import UpdateView
 from .forms import UserForm, UserUpdateForm
 from .models import User
 
+
 # view for registration
 class RegisterUserView(View):
     form_class = UserForm
@@ -63,6 +64,7 @@ class LogoutUserView(View):
         logout(request)
         return redirect("index-page")
 
+
 # view for update user
 # TODO добавить permission для того чтобы не могли пользователи изменять друг-друга
 class UserUpdateView(UpdateView):
@@ -71,12 +73,14 @@ class UserUpdateView(UpdateView):
     form_class = UserUpdateForm
     success_url = "/users/profile/"
 
+
 # view for delete user
 class UserDestroyView(View):
     def post(self, request):
         request.user.delete()
         logout(request)
         return redirect("index-page")
+
 
 # view for user profile
 class UserProfileView(View):

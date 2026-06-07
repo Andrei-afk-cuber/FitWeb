@@ -24,7 +24,9 @@ class UserForm(forms.ModelForm):
 
     password = forms.CharField(
         label="Пароль",
-        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Пароль от 8-ми символов"}),
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Пароль от 8-ми символов"}
+        ),
         validators=[MinLengthValidator(8)],
     )
 
@@ -46,11 +48,19 @@ class UserForm(forms.ModelForm):
         self.fields["height"].widget.attrs["class"] = "form-control"
         self.fields["age"].widget.attrs["class"] = "form-control"
 
+
 # update user form
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["weight", "height", "age", "activity_status", "target", "profile_image"]
+        fields = [
+            "weight",
+            "height",
+            "age",
+            "activity_status",
+            "target",
+            "profile_image",
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
