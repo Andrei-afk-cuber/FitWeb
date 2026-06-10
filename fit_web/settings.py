@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 
-from config import DBConfig
+from config import DBConfig, RedisConfig
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -138,7 +138,7 @@ CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": [
-            "redis://127.0.0.1:6379"
+            f"redis://{RedisConfig.HOST}:{RedisConfig.PORT}"
         ]
     }
 }

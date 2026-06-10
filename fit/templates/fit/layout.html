@@ -1,4 +1,5 @@
 {% load static %}
+{% load cache %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +14,12 @@
 </head>
 <body>
     <header>
+        {% cache 900 header_main_part %}
         <span class="logo">FitApp</span>
         <a href="{% url 'index-page' %}"><i class="fa-solid fa-house"></i>Главная</a>
         <a href="{% url 'calculator-page' %}"><i class="fa-solid fa-dumbbell"></i>Калькулятор</a>
         <a href="{% url 'news-page' %}"><i class="fa-solid fa-newspaper"></i>Обновления</a>
+        {% endcache %}
         {% if request.user.is_authenticated %}
         <div class="profile-settings">
             <a href="{% url 'profile-page' %}">
@@ -35,11 +38,11 @@
 
     <main>
         {% block content %}
-        <!-- Контент будет подставляться из дочерних шаблонов -->
         {% endblock %}
     </main>
 
     <footer>
+        {% cache 900 footer %}
         <div class="footer-container">
             <div class="footer-section">
                 <h3>FitApp</h3>
@@ -85,6 +88,7 @@
         <div class="footer-bottom">
             <p>&copy; 2026 FitApp. Все права защищены. | Сделано с <i class="fas fa-heart"></i> для вашего здоровья</p>
         </div>
+        {% endcache %}
     </footer>
 </body>
 </html>
