@@ -15,19 +15,18 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
 
-  redis_db:
+  redis-db:
     image: redis
     ports:
       - "${REDIS_PORT}:6379"
     volumes:
       - redis_data:/data
 
-
   app:
     build: .
     environment:
       DB_HOST: db
-      REDIS_HOST: redis_db
+      REDIS_HOST: redis-db
     ports:
       - "8000:8000"
     volumes:
@@ -37,7 +36,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      redis_db:
+      redis-db:
         condition: service_started
 
 volumes:
