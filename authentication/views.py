@@ -8,7 +8,7 @@ from django.views.generic import UpdateView
 from .forms import UserForm, UserUpdateForm
 from .models import User
 
-
+# TODO продумать использование кэша в этих представлениях
 # view for registration
 class RegisterUserView(View):
     form_class = UserForm

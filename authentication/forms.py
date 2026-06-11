@@ -1,5 +1,6 @@
 from django import forms
 from django.core.validators import MinLengthValidator
+from django.core.cache import cache
 
 from .models import User
 from .functions import generate_image_name
@@ -87,5 +88,8 @@ class UserUpdateForm(forms.ModelForm):
         if commit:
             instance.save()
             self.save_m2m()
+
+        # delete old cache if exists
+        cache.delete(f"user:{instance.id}:calculation_data")
 
         return instance
