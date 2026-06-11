@@ -90,7 +90,6 @@ class UserDestroyView(LoginRequiredMixin, View):
 
 
 # view for user profile
-# TODO исправить шаблон, т.к. поидее и так идет на авторизацию
 class UserProfileView(LoginRequiredMixin, UserPassesTestMixin, View):
     def get(self, request):
         return render(request, "authentication/profile.html")
