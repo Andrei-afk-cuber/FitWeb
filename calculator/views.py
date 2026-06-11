@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import View
 from django.core.cache import cache
@@ -6,7 +7,7 @@ from .utils import NutritionCalculator
 
 
 # main calculator view
-class CalculatorView(View):
+class CalculatorView(LoginRequiredMixin, View):
     def get(self, request):
         try:
             user = request.user

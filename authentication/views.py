@@ -1,7 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import UpdateView
 
@@ -58,23 +59,30 @@ class LoginUserView(View):
 
 
 # view for logout
-class LogoutUserView(View):
+class LogoutUserView(LoginRequiredMixin, View):
     def post(self, request):
         logout(request)
         return redirect("index-page")
 
 
 # view for update user
-# TODO добавить permission для того чтобы не могли пользователи изменять друг-друга
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     queryset = User.objects.all()
     template_name = "authentication/registration.html"
     form_class = UserUpdateForm
-    success_url = "/users/profile/"
+    success_url = reverse_lazy("profile-page")
+
+    # Current user check
+    def test_func(self):
+        user_to_edit = self.get_object()
+        return self.request.user == user_to_edit
+
+    def handle_no_permission(self):
+        return redirect("index-page")
 
 
 # view for delete user
-class UserDestroyView(View):
+class UserDestroyView(LoginRequiredMixin, View):
     def post(self, request):
         request.user.delete()
         logout(request)
@@ -82,11 +90,13 @@ class UserDestroyView(View):
 
 
 # view for user profile
-class UserProfileView(View):
+# TODO исправить шаблон, т.к. поидее и так идет на авторизацию
+class UserProfileView(LoginRequiredMixin, UserPassesTestMixin, View):
     def get(self, request):
-        # redirect to main page if user isn't authorizated
-        # TODO возможно лучше просто наложить permission
-        if not request.user.is_authenticated:
-            return redirect("index-page")
-
         return render(request, "authentication/profile.html")
+
+    def test_func(self):
+        return self.request.user.is_authenticated
+
+    def handle_no_permission(self):
+        return redirect("index-page")

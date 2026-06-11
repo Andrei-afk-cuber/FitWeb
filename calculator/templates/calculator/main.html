@@ -6,15 +6,6 @@
 {% endblock %}
 
 {% block content %}
-{% if not user.is_authenticated %}
-{% cache 900 calculator_page_registration_invitation %}
-<div class="cta-section">
-    <h2>Готов начать свой путь к здоровью? 🏃</h2>
-    <p>Раздел калькулятор доступен только для авторизованных пользователей!</p>
-    <a href="{% url 'registration-page' %}" class="btn btn-primary">Регистрация</a>
-</div>
-{% endcache %}
-{% else %}
 <div class="calculator-container">
     <div class="calculator-card">
         <div class="calculator-header">
@@ -88,5 +79,4 @@
         </div>
     </div>
 </div>
-{% endif %}
 {% endblock %}
