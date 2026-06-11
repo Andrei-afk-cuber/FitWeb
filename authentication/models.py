@@ -61,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("gain", "Набор веса"),
     )
 
-    email = models.EmailField("почта", max_length=100, unique=True)
+    email = models.EmailField("Email", max_length=100, unique=True)
     first_name = models.CharField("Имя", max_length=50)
     last_name = models.CharField("Фамилия", max_length=50)
     gender = models.CharField("Пол", max_length=1, choices=GENDER_CHOICES, default="M")

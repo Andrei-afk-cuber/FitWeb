@@ -8,7 +8,7 @@ from django.views.generic import UpdateView
 from .forms import UserForm, UserUpdateForm
 from .models import User
 
-# TODO продумать использование кэша в этих представлениях
+
 # view for registration
 class RegisterUserView(View):
     form_class = UserForm
@@ -28,9 +28,8 @@ class RegisterUserView(View):
             User.objects.create_user(**form.cleaned_data)
 
             return redirect("login-page")
-        # TODO сделать чтобы что-то происходило при невалидных данных
-        return HttpResponse(form.errors)
 
+        return render(request, "authentication/registration.html", {"form": form})
 
 # login view
 class LoginUserView(View):
